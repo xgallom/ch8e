@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
 		switch(key_read()) {
 			case 'q':
 				status = STATUS_QUIT;
+				break;
 
 			case 's':
 				status ^= STATUS_RUNNING;
