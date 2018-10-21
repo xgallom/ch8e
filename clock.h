@@ -1,3 +1,9 @@
+/**
+ * Chip8 clock emulator
+ *
+ * Written by Milan Gallo
+ */
+
 #ifndef _CLOCK_H_
 #define _CLOCK_H_
 

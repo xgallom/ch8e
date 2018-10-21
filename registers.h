@@ -1,3 +1,9 @@
+/**
+ * Chip8 Register emulator
+ *
+ * Written by Milan Gallo
+ */
+
 #ifndef _REGISTERS_H_
 #define _REGISTERS_H_
 

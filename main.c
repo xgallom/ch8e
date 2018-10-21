@@ -1,9 +1,9 @@
-/** 
+/**
  * A Chip8 emulator written in C
  *
  * Utilizing NCurses and standard linux C libraries
  *
- * Written by Milan Gallo on 2018-10-18.
+ * Written by Milan Gallo on 2018-10-18
  *
  */
 

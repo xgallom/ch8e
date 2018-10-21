@@ -1,3 +1,9 @@
+/**
+ * NCurses interface and Chip8 video and keyboard emulator
+ *
+ * Written by Milan Gallo
+ */
+
 #ifndef _IO_H_
 #define _IO_H_
 

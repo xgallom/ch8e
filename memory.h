@@ -1,3 +1,9 @@
+/**
+ * Chip 8 memory emulation
+ *
+ * Written by Milan Gallo
+ */
+
 #ifndef _MEMORY_H_
 #define _MEMORY_H_
 

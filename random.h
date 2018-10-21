@@ -1,3 +1,7 @@
+/**
+ * Chip8 random number generator emulator
+ */
+
 #ifndef _RANDOM_H_
 #define _RANDOM_H_
 
