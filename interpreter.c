@@ -15,7 +15,7 @@
 
 static void jmp(uint16_t addr)
 {
-    fprintf(stderr, "JMP %04x\n", addr);
+	fprintf(stderr, "JMP %04x\n", addr);
 
 	PC = ADDR(addr);
 }
@@ -50,7 +50,7 @@ int step(void)
 
 	if(suspend) {
 		uint8_t key = key_get();
-
+		`
 		if(key != 0xff) {
 			R_1(suspend) = key;
 			fprintf(stderr, "KEY %02x\n", key);
@@ -63,7 +63,7 @@ int step(void)
 	uint16_t inst = wmem_at(PC);
 	adv_pc();
 
-    fprintf(stderr, "\nInst: %04x\n", inst);
+	fprintf(stderr, "\nInst: %04x\n", inst);
 	regs_dump();
 
 	uint16_t tmp;
@@ -81,182 +81,182 @@ int step(void)
 					++PS;
 					break;
 
-			    default:
-			        fprintf(stderr, "Warning: Unhandled machine instruction %04x\n", inst);
-			        break;
+				default:
+					fprintf(stderr, "Warning: Unhandled machine instruction %04x\n", inst);
+					break;
 			}
-		break;
+			break;
 
 		case 0x1:
 			jmp(inst);
-		break;
+			break;
 
 		case 0x2: // CALL
 			*mem_at(PS--) = LOW(PC);
 			*mem_at(PS--) = HIGH(PC);
 			jmp(inst);
-		break;
+			break;
 
 		case 0x3:
 			if(R_1(inst) == LOW(inst))
 				adv_pc();
-		break;
+			break;
 
 		case 0x4:
 			if(R_1(inst) != LOW(inst))
 				adv_pc();
-		break;
+			break;
 
 		case 0x5:
 			if(R_1(inst) == R_2(inst))
 				adv_pc();
-		break;
+			break;
 
 		case 0x6:
 			R_1(inst) = LOW(inst);
-		break;
+			break;
 
 		case 0x7:
 			R_1(inst) += LOW(inst);
-		break;
+			break;
 
 		case 0x8:
 			switch(inst & 0x000f) {
 				case 0x0:
 					R_1(inst) = R_2(inst);
-				break;
+					break;
 
 				case 0x1:
 					R_1(inst) |= R_2(inst);
-				break;
+					break;
 
 				case 0x2:
 					R_1(inst) &= R_2(inst);
-				break;
+					break;
 
 				case 0x3:
 					R_1(inst) ^= R_2(inst);
-				break;
+					break;
 
 				case 0x4:
 					tmp = ((uint16_t) R_1(inst)) + ((uint16_t) R_2(inst));
 					RV = tmp > 0x00ff ? 0x01 : 0x00;
 					R_1(inst) = (uint8_t) tmp;
-				break;
+					break;
 
 				case 0x5:
 					R_1(inst) -= R_2(inst);
-				break;
+					break;
 
 				case 0x6:
 					RV = R_1(inst) & 0x01;
 					R_1(inst) >>= 0x1;
-				break;
+					break;
 
 				case 0x7:
 					RV = R_2(inst) > R_1(inst) ? 0x01 : 0x00;
 					R_1(inst) -= R_2(inst);
-				break;
+					break;
 
 				case 0xE:
 					RV = R_1(inst) & 0x80 ? 0x01 : 0x00;
 					R_1(inst) <<= 1;
-				break;
+					break;
 
-			    default:
-			        fprintf(stderr, "Warning: Unhandled instruction %04x\n", inst);
-                break;
+				default:
+					fprintf(stderr, "Warning: Unhandled instruction %04x\n", inst);
+					break;
 			}
-		break;
+			break;
 
 		case 0xa:
 			I = ADDR(inst);
-		break;
+			break;
 
 		case 0xb:
 			jmp(inst + R[0]);
-		break;
+			break;
 
 		case 0xc:
 			R_1(inst) = rand_get() & LOW(inst);
-		break;
+			break;
 
 		case 0xd:
 			RV = render_sprite(
-				R_2(inst),
-				R_1(inst),
-				I,
-				(uint8_t) (inst & 0x000f)
+					R_2(inst),
+					R_1(inst),
+					I,
+					(uint8_t) (inst & 0x000f)
 			);
-		break;
+			break;
 
 		case 0xe:
 			switch(LOW(inst)) {
 				case 0x9e:
 					if(key_down(R_1(inst)))
 						adv_pc();
-				break;
+					break;
 
 				case 0xa1:
 					if(key_up(R_1(inst)))
 						adv_pc();
-				break;
+					break;
 
 				default:
 					fprintf(stderr, "Warning: Unhandled instruction %04x\n", inst);
-				break;
+					break;
 			}
-		break;
+			break;
 
 		case 0xf:
 			switch(LOW(inst)) {
 				case 0x07:
 					R_1(inst) = DT;
-				break;
+					break;
 
 				case 0x0a:
 					suspend = inst;
-				break;
+					break;
 
 				case 0x15:
 					DT = R_1(inst);
-				break;
+					break;
 
 				case 0x18:
 					ST = R_1(inst);
-				break;
+					break;
 
 				case 0x1e:
 					I += (uint16_t) R_1(inst);
-				break;
+					break;
 
 				case 0x29:
 					I = ((uint16_t) R_1(inst) * DIGIT_SIZE);
-				break;
+					break;
 
 				case 0x33:
 					store_bcd(mem_at(I), R_1(inst));
 					mem_dump();
-				break;
+					break;
 
 				case 0x55:
 					memcpy(mem_at(I), R, sizeof(uint8_t) * ((HIGH(inst) & 0x0f) + 0x01));
 					mem_dump();
-				break;
+					break;
 
 				case 0x65:
 					memcpy(R, mem_at(I), sizeof(uint8_t) * ((HIGH(inst) & 0x0f) + 0x01));
 					mem_dump();
-				break;
+					break;
 
 				default:
 					fprintf(stderr, "Warning: Unhandled instruction %04x\n", inst);
-				break;
+					break;
 			}
-		break;
+			break;
 
 		default:
-		break;
+			break;
 	}
 
 	return 1;

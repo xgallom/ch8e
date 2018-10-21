@@ -202,17 +202,17 @@ static void create_win(void)
 	fprintf(stderr, "Graphics: Border size: %d, %d\n", brd_h, brd_w);
 
 	WINDOW *brd_win = newwin(
-		h + 2 * brd_h, w + 2 * brd_w,
-		CENTER(h + 2 * brd_h, y),
-		CENTER(w + 2 * brd_w, x)
+			h + 2 * brd_h, w + 2 * brd_w,
+			CENTER(h + 2 * brd_h, y),
+			CENTER(w + 2 * brd_w, x)
 	);
 
 	fill(brd_win, ' ' | A_REVERSE);
 
 	win = newwin(
-		h, w, 
-		CENTER(h + 2 * brd_h, y) + brd_h,
-		CENTER(w + 2 * brd_w, x) + brd_w
+			h, w,
+			CENTER(h + 2 * brd_h, y) + brd_h,
+			CENTER(w + 2 * brd_w, x) + brd_w
 	);
 
 	wrefresh(brd_win);

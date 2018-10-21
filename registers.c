@@ -22,13 +22,13 @@ void regs_init(void)
 void regs_dump(void)
 {
 	fprintf(stderr, "R:");
-	
+
 	for(int n = 0; n < GENERAL_REGISTERS; ++n)
 		fprintf(stderr, " %02x", R[n]);
-	
+
 	fprintf(stderr,
-		"\nI: %04x\nDT: %02x\nST: %02x\nPC: %04x\nPS: %04x\n",
-		I, DT, ST, PC, PS
+			"\nI: %04x\nDT: %02x\nST: %02x\nPC: %04x\nPS: %04x\n",
+			I, DT, ST, PC, PS
 	);
 }
 

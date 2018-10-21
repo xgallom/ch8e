@@ -55,10 +55,10 @@ int main(int argc, char *argv[])
 
 			case 's':
 				status ^= STATUS_RUNNING;
-			break;
+				break;
 
 			default:
-			break;
+				break;
 		}
 
 		if(status & STATUS_RUNNING) {
@@ -97,7 +97,7 @@ static int load_file(const char file_name[])
 
 	while((c = getc(f)) != EOF)
 		*mem_index++ = (uint8_t) c;
-	
+
 	fclose(f);
 
 	return SUCCESS;
